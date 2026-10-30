@@ -2,6 +2,9 @@ import { useLocation } from "react-router";
 import { getWeather } from "../services/get-wether";
 import { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
+import WeatherCard from "../components/WeatherCard";
+import RecommendationCard from "../components/RecommendationCard";
+import WeatherType from "../components/WeatherType";
 
 const Weather = () => {
     const value = useLocation();
@@ -70,54 +73,17 @@ const Weather = () => {
     return (
         <div className="grid md:grid-cols-2 gap-4">
             <div className="shadow-2xl rounded-2xl space-y-5 max-w-xl bg-gray-200">
-                <div className="shadow-2xl rounded-2xl p-4 max-w-xl bg-gray-200">
-                    <h2 className="text-4xl font-bold text-blue-700">Todays Weather Details</h2>
-                    <div className="my-4 flex items-center">
-                        <MapPin size={20} className=" text-purple-700 mr-1" />
-                        <h2 className="text-xl font-bold text-purple-600 ">{place.name}</h2>
-                    </div>
-                    <div className="flex items-center gap-8">
-                        <p className="text-4xl font-extrabold text-purple-800">{weather?.temperature}°C</p>
-                        <p className="text-4xl font-bold text-purple-700">{weather?.description}</p>
-                    </div>
-                    <div className="grid md:grid-cols-3 my-5 gap-4">
-                        <div className="text-center shadow-2xl rounded-2xl p-2">
-                            <p className="text-purple-600 font-bold text-xl">Feels Like</p>
-                            <p className="text-purple-600 font-bold text-3xl">{weather?.feels_like}</p>
-                        </div>
+                {/* weather card */}
+                <WeatherCard weather={weather} place={place} />
 
-                        <div className="text-center shadow-2xl rounded-2xl p-2">
-                            <p className="text-purple-600 font-bold text-xl">Humidity</p>
-                            <p className="text-purple-600 font-bold text-3xl">{weather?.humidity}</p>
-                        </div>
-
-                        <div className="text-center shadow-2xl rounded-2xl p-2">
-                            <p className="text-purple-600 font-bold text-xl">Wind Speed</p>
-                            <p className="text-purple-600 font-bold text-3xl">{weather?.windSpeed}</p>
-                        </div>
-                    </div>
-                </div>
                 {/* Recommendation */}
-                <div className="shadow-2xl rounded-2xl p-4 max-w-xl bg-gray-200">
-                    <h2 className="text-2xl font-bold text-blue-950">Smart Recommendation</h2>
-
-                    <p className="text-gray-800 font-medium">{getRecommendations(weather)?.text}</p>
-                </div>
+                <RecommendationCard recommendation={getRecommendations(weather)} />
             </div>
 
+            {/* weather type */}
             <div className="shadow-2xl rounded-2xl p-4 max-w-xl bg-gray-200">
-                <div className="flex flex-col justify-between items-center h-full">
-                    <h2 className="text-blue-950 font-bold text-2xl">live in {place.name}</h2>
-
-
-                    <div className="flex items-center justify-center">
-                        <p className="text-2xl font-bold text-blue-950">{weather?.description}</p>
-                    </div>
-
-                    <div className="flex justify-center items-center">
-                        <span className="text-blue-900 font-bold text-xl border border-purple-500 py-2 px-4 rounded-full">feels-like : {weather?.feels_like}</span>
-                    </div>
-                </div>
+                {/* weather type */}
+                <WeatherType weather={weather} place={place} />
             </div>
         </div>
     );
