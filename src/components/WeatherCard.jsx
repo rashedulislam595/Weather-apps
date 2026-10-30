@@ -1,7 +1,13 @@
 import { MapPin } from 'lucide-react';
 import React from 'react';
+import StateCard from './StateCard';
 
 const WeatherCard = ({ weather, place }) => {
+    const state = [
+        {icons:'', label: 'Feels Like', value: weather?.feels_like},
+        {icons:'', label: 'Humidity', value: weather?.humidity},
+        {icons:'', label: 'Wind Speed', value: weather?.windSpeed}
+    ]
     return (
         <div className="shadow-2xl rounded-2xl p-4 max-w-xl bg-gray-200">
                     <h2 className="text-4xl font-bold text-blue-700">Todays Weather Details</h2>
@@ -14,20 +20,7 @@ const WeatherCard = ({ weather, place }) => {
                         <p className="text-4xl font-bold text-purple-700">{weather?.description}</p>
                     </div>
                     <div className="grid md:grid-cols-3 my-5 gap-4">
-                        <div className="text-center shadow-2xl rounded-2xl p-2">
-                            <p className="text-purple-600 font-bold text-xl">Feels Like</p>
-                            <p className="text-purple-600 font-bold text-3xl">{weather?.feels_like}</p>
-                        </div>
-
-                        <div className="text-center shadow-2xl rounded-2xl p-2">
-                            <p className="text-purple-600 font-bold text-xl">Humidity</p>
-                            <p className="text-purple-600 font-bold text-3xl">{weather?.humidity}</p>
-                        </div>
-
-                        <div className="text-center shadow-2xl rounded-2xl p-2">
-                            <p className="text-purple-600 font-bold text-xl">Wind Speed</p>
-                            <p className="text-purple-600 font-bold text-3xl">{weather?.windSpeed}</p>
-                        </div>
+                        {state.map((item, index) => (<StateCard key={index} label={item.label} value={item.value} />))}
                     </div>
                 </div>
     );
